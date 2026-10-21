@@ -1,0 +1,66 @@
+{
+  "name": "terminal-copier",
+  "displayName": "Terminal Copier",
+  "description": "One-click copy of everything in the VS Code terminal, plus full command output recording that survives scrollback limits.",
+  "version": "0.1.2",
+  "publisher": "harsha",
+  "license": "MIT",
+  "engines": { "vscode": "^1.93.0" },
+  "categories": ["Other"],
+  "keywords": ["terminal", "copy", "output", "scrollback"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "terminalCopier.copyAll", "title": "Terminal Copier: Copy Entire Terminal", "icon": "$(copy)" },
+      { "command": "terminalCopier.copyLastOutput", "title": "Terminal Copier: Copy Last Command Output", "icon": "$(output)" },
+      { "command": "terminalCopier.copyRecorded", "title": "Terminal Copier: Copy Full Recorded History (beyond scrollback)" },
+      { "command": "terminalCopier.openRecorded", "title": "Terminal Copier: Open Recorded History in Editor" },
+      { "command": "terminalCopier.increaseScrollback", "title": "Terminal Copier: Increase Terminal Scrollback" }
+    ],
+    "menus": {
+      "view/title": [
+        { "command": "terminalCopier.copyAll", "when": "view == terminal", "group": "navigation@1" },
+        { "command": "terminalCopier.copyLastOutput", "when": "view == terminal", "group": "navigation@2" }
+      ],
+      "terminal/context": [
+        { "command": "terminalCopier.copyAll", "group": "9_copier@1" },
+        { "command": "terminalCopier.copyLastOutput", "group": "9_copier@2" }
+      ],
+      "terminal/title/context": [
+        { "command": "terminalCopier.copyAll", "group": "9_copier@1" },
+        { "command": "terminalCopier.copyLastOutput", "group": "9_copier@2" }
+      ]
+    },
+    "keybindings": [
+      { "command": "terminalCopier.copyAll", "key": "ctrl+shift+alt+c", "mac": "cmd+shift+alt+c" }
+    ],
+    "configuration": {
+      "title": "Terminal Copier",
+      "properties": {
+        "terminalCopier.recordOutput": {
+          "type": "boolean",
+          "default": true,
+          "description": "Record command output (requires shell integration) so it can be copied even after it scrolls out of the terminal."
+        },
+        "terminalCopier.maxCharsPerTerminal": {
+          "type": "number",
+          "default": 5000000,
+          "description": "Maximum characters of recorded output kept per terminal. Oldest output is dropped first."
+        },
+        "terminalCopier.showStatusBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the copy buttons in the status bar."
+        }
+      }
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Harsha12022002/terminal-copier.git"
+  },
+  "homepage": "https://github.com/Harsha12022002/terminal-copier",
+  "bugs": { "url": "https://github.com/Harsha12022002/terminal-copier/issues" },
+  "author": "Harsha"
+}
